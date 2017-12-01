@@ -3,8 +3,6 @@ package com.predic8.workshop.stock.event;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.predic8.workshop.stock.dto.Basket;
 import com.predic8.workshop.stock.dto.Stock;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.annotation.PartitionOffset;
 import org.springframework.kafka.annotation.TopicPartition;
@@ -14,13 +12,17 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.util.Map;
 
-@Slf4j
-@RequiredArgsConstructor
 @Service
 public class ShopListener {
 	private final KafkaTemplate<String, Operation> kafkaTemplate;
 	private final ObjectMapper objectMapper;
 	private final Map<String, Stock> articles;
+
+	public ShopListener(KafkaTemplate<String, Operation> kafkaTemplate, ObjectMapper objectMapper, Map<String, Stock> articles) {
+		this.kafkaTemplate = kafkaTemplate;
+		this.objectMapper = objectMapper;
+		this.articles = articles;
+	}
 
 	@KafkaListener(id = "stock-listener",
 			topicPartitions =
@@ -33,9 +35,6 @@ public class ShopListener {
 				return;
 			case "basket":
 				handleBasket(objectMapper.convertValue(operation.getObject(), Basket.class));
-				return;
-			default:
-				log.info("Unknown type: {}", operation.getType());
 		}
 	}
 
@@ -44,9 +43,6 @@ public class ShopListener {
 			case "create":
 			case "update":
 				articles.put(stock.getUuid(), stock);
-				break;
-			default:
-				log.info("Unknown action: {}", action);
 		}
 	}
 

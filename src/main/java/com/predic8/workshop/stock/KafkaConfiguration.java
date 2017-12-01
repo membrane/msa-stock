@@ -2,7 +2,6 @@ package com.predic8.workshop.stock;
 
 
 import com.predic8.workshop.stock.event.Operation;
-import lombok.RequiredArgsConstructor;
 import org.apache.kafka.clients.consumer.ConsumerRebalanceListener;
 import org.apache.kafka.common.TopicPartition;
 import org.apache.kafka.common.serialization.StringDeserializer;
@@ -17,7 +16,6 @@ import org.springframework.kafka.support.serializer.JsonDeserializer;
 
 import java.util.Collection;
 
-@RequiredArgsConstructor
 @EnableKafka
 @Configuration
 public class KafkaConfiguration {
