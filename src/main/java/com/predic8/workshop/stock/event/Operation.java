@@ -7,6 +7,9 @@ public class Operation {
 	private String type;
 	private JsonNode object;
 
+	public Operation() {
+	}
+
 	public Operation(String action, String type, JsonNode object) {
 		this.action = action;
 		this.type = type;

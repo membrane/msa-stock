@@ -4,6 +4,9 @@ public class Stock {
 	private String uuid;
     private long quantity;
 
+	public Stock() {
+	}
+
 	public Stock(String uuid, long quantity) {
 		this.uuid = uuid;
 		this.quantity = quantity;
