@@ -53,7 +53,6 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
-<<<<<<< HEAD
 			<artifactId>spring-cloud-starter-zipkin</artifactId>
 		</dependency>
 		<dependency>
@@ -64,10 +63,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
-=======
-			<artifactId>spring-cloud-starter-consul-all</artifactId>
-		</dependency>
->>>>>>> 5eccdcd966ecbd9a43bec7a108e36aca60450bf2
 	</dependencies>
 
 	<build>
@@ -78,5 +73,4 @@
 			</plugin>
 		</plugins>
 	</build>
-	<!-- -->
 </project>
