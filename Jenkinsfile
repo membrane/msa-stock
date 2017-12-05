@@ -4,7 +4,7 @@ node {
         }
 
         stage('Maven Build') {
-            echo $SHELL
+            sh "echo $SHELL"
             sh "mvn package"
         }
 
