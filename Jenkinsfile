@@ -1,9 +1,13 @@
 node {
-        stage("checkout") {
+        stage("Checkout") {
             checkout scm
         }
 
+        stage('Maven Build') {
+            sh "mvn package"
+        }
+
         stage('Docker image') {
-                app = docker.build("membrane/msa-stock")
+             app = docker.build("membrane/msa-stock")
         }
 }
