@@ -50,6 +50,11 @@ public class StockApplication {
 		customizer.customize(rest);
 
 		List<ServiceInstance> instances = discovery.getInstances("zipkin");
+
+		if (instances.size() == 0) {
+			return null;
+		}
+
 		ServiceInstance instance = instances.get(0);
 
 		String uri = instance.getUri().toString();
