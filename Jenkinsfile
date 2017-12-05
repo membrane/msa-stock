@@ -14,6 +14,6 @@ node {
 
         stage("Deploy") {
             sh "docker rm -f stock || echo 'ok'"
-            sh "docker run -d --name stock --net shopnet membrane/msa-stock"
+            sh "docker run -d --name stock --net shopnet -p 8081:8081 membrane/msa-stock"
         }
 }
