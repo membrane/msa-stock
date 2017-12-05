@@ -1,7 +1,9 @@
 node {
-        stage("Main build") {
-
+        stage("checkout") {
             checkout scm
+        }
 
+        stage('Docker image') {
+                app = docker.build("membrane/msa-stock")
         }
 }
