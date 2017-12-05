@@ -22,7 +22,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
-		<spring-cloud.version>Dalston.SR4</spring-cloud.version>
+		<spring-cloud.version>Edgware.RELEASE</spring-cloud.version>
 	</properties>
 
 	<dependencyManagement>
@@ -53,6 +53,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
+<<<<<<< HEAD
 			<artifactId>spring-cloud-starter-zipkin</artifactId>
 		</dependency>
 		<dependency>
@@ -63,6 +64,10 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
+=======
+			<artifactId>spring-cloud-starter-consul-all</artifactId>
+		</dependency>
+>>>>>>> 5eccdcd966ecbd9a43bec7a108e36aca60450bf2
 	</dependencies>
 
 	<build>
@@ -73,4 +78,5 @@
 			</plugin>
 		</plugins>
 	</build>
+	<!-- -->
 </project>
