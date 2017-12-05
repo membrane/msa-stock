@@ -9,6 +9,11 @@ node {
         }
 
         stage('Docker image') {
-             app = docker.build("membrane/msa-stock")
+             docker.build("membrane/msa-stock")
+        }
+
+        stage("Deploy") {
+            sh "docker rm -f stock"
+            sh "docker run -d --name stock membrane/msa-stoc"
         }
 }
