@@ -32,8 +32,8 @@ public class StockApplication {
 		return new ConcurrentHashMap<>();
 	}
 
-	@Autowired
-	public DiscoveryClient discovery;
+//	@Autowired
+//	public DiscoveryClient discovery;
 
 	@Value("${spring.sleuth.web.skipPattern}")
 	private String skipPattern;
@@ -42,25 +42,25 @@ public class StockApplication {
 		SpringApplication.run(StockApplication.class, args);
 	}
 
-	@Bean
-	@ConditionalOnMissingBean
-	public ZipkinSpanReporter reporter(SpanMetricReporter reporter, ZipkinProperties zipkin,
-									   ZipkinRestTemplateCustomizer customizer) {
-		RestTemplate rest = new RestTemplate();
-		customizer.customize(rest);
-
-		List<ServiceInstance> instances = discovery.getInstances("zipkin");
-
-		if (instances.size() == 0) {
-			return null;
-		}
-
-		ServiceInstance instance = instances.get(0);
-
-		String uri = instance.getUri().toString();
-
-		System.out.println("instance.getUri().toString() = " + uri);
-
-		return new HttpZipkinSpanReporter(rest, uri, zipkin.getFlushInterval(), reporter);
-	}
+//	@Bean
+//	@ConditionalOnMissingBean
+//	public ZipkinSpanReporter reporter(SpanMetricReporter reporter, ZipkinProperties zipkin,
+//									   ZipkinRestTemplateCustomizer customizer) {
+//		RestTemplate rest = new RestTemplate();
+//		customizer.customize(rest);
+//
+//		List<ServiceInstance> instances = discovery.getInstances("zipkin-service");
+//
+//		if (instances.size() == 0) {
+//			return null;
+//		}
+//
+//		ServiceInstance instance = instances.get(0);
+//
+//		String uri = instance.getUri().toString();
+//
+//		System.out.println("instance.getUri().toString() = " + uri);
+//
+//		return new HttpZipkinSpanReporter(rest, uri, zipkin.getFlushInterval(), reporter);
+//	}
 }

@@ -2,14 +2,14 @@ package com.predic8.workshop.stock.dto;
 
 public class Article {
 	// TODO uuid
-	private String article;
+	private String articleId;
 	private long quantity;
 
 	public Article() {
 	}
 
-	public String getArticle() {
-		return this.article;
+	public String getArticleId() {
+		return this.articleId;
 	}
 
 	public long getQuantity() {
@@ -17,6 +17,6 @@ public class Article {
 	}
 
 	public String toString() {
-		return "Article(article=" + article + ", quantity=" + quantity + ")";
+		return "Article(articleId=" + articleId + ", quantity=" + quantity + ")";
 	}
 }

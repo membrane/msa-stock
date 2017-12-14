@@ -11,16 +11,21 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
+import java.util.logging.Logger;
 
 @Service
 public class ShopListener {
-	private final KafkaTemplate<String, Operation> kafkaTemplate;
-	private final ObjectMapper objectMapper;
+
+	private Logger log = Logger.getLogger(String.valueOf(ShopListener .class));
+
+	private final KafkaTemplate<String, Operation> kafka;
+	private final ObjectMapper mapper;
 	private final Map<String, Stock> articles;
 
-	public ShopListener(KafkaTemplate<String, Operation> kafkaTemplate, ObjectMapper objectMapper, Map<String, Stock> articles) {
-		this.kafkaTemplate = kafkaTemplate;
-		this.objectMapper = objectMapper;
+	public ShopListener(KafkaTemplate<String, Operation> kafka, ObjectMapper mapper, Map<String, Stock> articles) {
+		this.kafka = kafka;
+		this.mapper = mapper;
 		this.articles = articles;
 	}
 
@@ -28,13 +33,16 @@ public class ShopListener {
 			topicPartitions =
 					{ @TopicPartition(topic = "shop",
 							partitionOffsets = @PartitionOffset(partition = "0", initialOffset = "0"))})
-	public void listen(Operation operation) throws IOException {
-		switch (operation.getType()) {
+	public void listen(Operation op) throws IOException {
+
+		op.logReceive();
+
+		switch (op.getBo()) {
 			case "article":
-				handleArticle(operation.getAction(), objectMapper.convertValue(operation.getObject(), Stock.class));
+				handleArticle(op.getAction(), mapper.convertValue(op.getObject(), Stock.class));
 				return;
 			case "basket":
-				handleBasket(objectMapper.convertValue(operation.getObject(), Basket.class));
+				handleBasket(mapper.convertValue(op.getObject(), Basket.class));
 		}
 	}
 
@@ -43,6 +51,9 @@ public class ShopListener {
 			case "create":
 			case "update":
 				articles.put(stock.getUuid(), stock);
+				break;
+			case "delete":
+				articles.remove(stock.getUuid());
 		}
 	}
 
@@ -51,9 +62,17 @@ public class ShopListener {
 			.getItems()
 			.stream()
 			.map(item ->
-				new Operation("update", "article", objectMapper.valueToTree(
-					new Stock(item.getArticle(), articles.get(item.getArticle()).getQuantity() - item.getQuantity())))
+				new Operation("article", "update", mapper.valueToTree(
+						new Stock(item.getArticleId(), articles.get(item.getArticleId()).getQuantity() - item.getQuantity())))
 			)
-			.forEach(operation -> kafkaTemplate.send("shop", operation));
+			.forEach(op -> {
+                try {
+                    op.logSend();
+
+                	kafka.send("shop", op).get(100, TimeUnit.MILLISECONDS);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            });
 	}
 }
