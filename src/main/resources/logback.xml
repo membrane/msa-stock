@@ -3,8 +3,12 @@
     <include resource="org/springframework/boot/logging/logback/base.xml" />
     <include resource="com/predic8/logging/logback-json.xml"/>
 
+    <appender name="ASYNC" class="ch.qos.logback.classic.AsyncAppender">
+        <appender-ref ref="jsonStdout" />
+    </appender>
+
     <root level="info">
         <appender-ref ref="stash"/>
-        <appender-ref ref="jsonStdout"/>
+        <appender-ref ref="ASYNC"/>
     </root>
 </configuration>

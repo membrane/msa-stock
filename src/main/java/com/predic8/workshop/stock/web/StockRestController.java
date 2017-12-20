@@ -39,4 +39,9 @@ public class StockRestController {
 
 		return stock;
 	}
+
+	@GetMapping("/count")
+	public long count() {
+		return articles.size();
+	}
 }

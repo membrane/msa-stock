@@ -34,7 +34,6 @@ public class ShopListener {
 			{@TopicPartition(topic = "shop",
 				partitionOffsets = @PartitionOffset(partition = "0", initialOffset = "0"))})
 	public void listen(Operation op) throws IOException {
-
 		op.logReceive();
 
 		switch (op.getBo()) {

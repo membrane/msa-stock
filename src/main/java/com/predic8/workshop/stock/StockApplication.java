@@ -16,7 +16,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class StockApplication {
 	@Bean
 	public Map<String, Stock> articles() {
-		return new ConcurrentHashMap<>();
+		return new ConcurrentHashMap<>(2_000_000);
 	}
 
 //	@Autowired
