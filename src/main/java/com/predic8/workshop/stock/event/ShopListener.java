@@ -17,7 +17,7 @@ import java.util.logging.Logger;
 @Service
 public class ShopListener {
 
-	private Logger log = Logger.getLogger(String.valueOf(ShopListener .class));
+	private Logger log = Logger.getLogger(String.valueOf(ShopListener.class));
 
 	private final KafkaTemplate<String, Operation> kafka;
 	private final ObjectMapper mapper;
@@ -30,9 +30,9 @@ public class ShopListener {
 	}
 
 	@KafkaListener(id = "stock-listener",
-			topicPartitions =
-					{ @TopicPartition(topic = "shop",
-							partitionOffsets = @PartitionOffset(partition = "0", initialOffset = "0"))})
+		topicPartitions =
+			{@TopicPartition(topic = "shop",
+				partitionOffsets = @PartitionOffset(partition = "0", initialOffset = "0"))})
 	public void listen(Operation op) throws IOException {
 
 		op.logReceive();
@@ -63,16 +63,16 @@ public class ShopListener {
 			.stream()
 			.map(item ->
 				new Operation("article", "update", mapper.valueToTree(
-						new Stock(item.getArticleId(), articles.get(item.getArticleId()).getQuantity() - item.getQuantity())))
+					new Stock(item.getArticleId(), articles.get(item.getArticleId()).getQuantity() - item.getQuantity())))
 			)
 			.forEach(op -> {
-                try {
-                    op.logSend();
+				try {
+					op.logSend();
 
-                	kafka.send("shop", op).get(100, TimeUnit.MILLISECONDS);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            });
+					kafka.send("shop", op).get(100, TimeUnit.MILLISECONDS);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			});
 	}
 }
