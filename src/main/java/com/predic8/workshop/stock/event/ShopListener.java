@@ -10,30 +10,29 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
-import java.util.logging.Logger;
 
 @Service
 public class ShopListener {
-
-	private Logger log = Logger.getLogger(String.valueOf(ShopListener.class));
-
 	private final KafkaTemplate<String, Operation> kafka;
 	private final ObjectMapper mapper;
 	private final Map<String, Stock> articles;
+	private final NullAwareBeanUtilsBean nullAwareUtils;
 
-	public ShopListener(KafkaTemplate<String, Operation> kafka, ObjectMapper mapper, Map<String, Stock> articles) {
+	public ShopListener(KafkaTemplate<String, Operation> kafka, ObjectMapper mapper, Map<String, Stock> articles, NullAwareBeanUtilsBean nullAwareUtils) {
 		this.kafka = kafka;
 		this.mapper = mapper;
 		this.articles = articles;
+		this.nullAwareUtils = nullAwareUtils;
 	}
 
 	@KafkaListener(id = "stock-listener",
 		topicPartitions =
 			{@TopicPartition(topic = "shop",
 				partitionOffsets = @PartitionOffset(partition = "0", initialOffset = "0"))})
-	public void listen(Operation op) throws IOException {
+	public void listen(Operation op) throws IOException, InvocationTargetException, IllegalAccessException {
 		op.logReceive();
 
 		switch (op.getBo()) {
@@ -45,11 +44,16 @@ public class ShopListener {
 		}
 	}
 
-	private void handleArticle(String action, Stock stock) {
+	private void handleArticle(String action, Stock stock) throws InvocationTargetException, IllegalAccessException {
 		switch (action) {
 			case "create":
-			case "update":
 				articles.put(stock.getUuid(), stock);
+			case "update":
+				Stock old = articles.get(stock.getUuid());
+
+				nullAwareUtils.copyProperties(old, stock);
+				articles.put(stock.getUuid(), old);
+
 				break;
 			case "delete":
 				articles.remove(stock.getUuid());

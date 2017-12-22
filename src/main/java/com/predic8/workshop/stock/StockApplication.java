@@ -1,6 +1,7 @@
 package com.predic8.workshop.stock;
 
 import com.predic8.workshop.stock.dto.Stock;
+import com.predic8.workshop.stock.event.NullAwareBeanUtilsBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -19,8 +20,10 @@ public class StockApplication {
 		return new ConcurrentHashMap<>(2_000_000);
 	}
 
-//	@Autowired
-//	public DiscoveryClient discovery;
+	@Bean
+	public NullAwareBeanUtilsBean beanUtils() {
+		return new NullAwareBeanUtilsBean();
+	}
 
 	@Value("${spring.sleuth.web.skipPattern}")
 	private String skipPattern;
@@ -28,26 +31,4 @@ public class StockApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(StockApplication.class, args);
 	}
-
-//	@Bean
-//	@ConditionalOnMissingBean
-//	public ZipkinSpanReporter reporter(SpanMetricReporter reporter, ZipkinProperties zipkin,
-//									   ZipkinRestTemplateCustomizer customizer) {
-//		RestTemplate rest = new RestTemplate();
-//		customizer.customize(rest);
-//
-//		List<ServiceInstance> instances = discovery.getInstances("zipkin-service");
-//
-//		if (instances.size() == 0) {
-//			return null;
-//		}
-//
-//		ServiceInstance instance = instances.get(0);
-//
-//		String uri = instance.getUri().toString();
-//
-//		System.out.println("instance.getUri().toString() = " + uri);
-//
-//		return new HttpZipkinSpanReporter(rest, uri, zipkin.getFlushInterval(), reporter);
-//	}
 }
