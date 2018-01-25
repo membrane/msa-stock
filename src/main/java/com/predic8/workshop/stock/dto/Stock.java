@@ -13,8 +13,16 @@ public class Stock {
 		this.quantity = quantity;
 	}
 
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
+	}
+
 	public String getUuid() {
 		return this.uuid;
+	}
+
+	public void setQuantity(long quantity) {
+		this.quantity = quantity;
 	}
 
 	public long getQuantity() {

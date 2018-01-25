@@ -32,7 +32,7 @@ public class ShopListener {
 		topicPartitions =
 			{@TopicPartition(topic = "shop",
 				partitionOffsets = @PartitionOffset(partition = "0", initialOffset = "0"))})
-	public void listen(Operation op) throws IOException, InvocationTargetException, IllegalAccessException {
+	public void listen(Operation op) throws Exception {
 		op.logReceive();
 
 		switch (op.getBo()) {
@@ -44,19 +44,23 @@ public class ShopListener {
 		}
 	}
 
-	private void handleArticle(String action, Stock stock) throws InvocationTargetException, IllegalAccessException {
+	private void handleArticle(String action, Stock stock) throws Exception {
 		switch (action) {
 			case "create":
 				articles.put(stock.getUuid(), stock);
+				break;
 			case "update":
 				Stock old = articles.get(stock.getUuid());
 
+				//  dest / src
 				nullAwareUtils.copyProperties(old, stock);
+
 				articles.put(stock.getUuid(), old);
 
 				break;
 			case "delete":
 				articles.remove(stock.getUuid());
+				break;
 		}
 	}
 
