@@ -1,19 +1,10 @@
-node {
-        stage("Checkout") {
-            checkout scm
+pipeline {
+    agent { docker 'maven:3-alpine' }
+    stages {
+        stage('Example Build') {
+            steps {
+                sh 'mvn -B clean verify'
+            }
         }
-
-        stage('Maven Build') {
-            sh "echo $SHELL"
-            sh "mvn package"
-        }
-
-        stage('Docker image') {
-             docker.build("membrane/msa-stock")
-        }
-
-        stage("Deploy") {
-            sh "docker rm -f stock || echo 'ok'"
-            sh "docker run -d --name stock --net shopnet -p 8081:8081 membrane/msa-stock"
-        }
+    }
 }
