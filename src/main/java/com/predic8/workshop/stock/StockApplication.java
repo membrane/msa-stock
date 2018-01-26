@@ -5,7 +5,6 @@ import com.predic8.workshop.stock.event.NullAwareBeanUtilsBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.Bean;
 
 import java.util.Map;
@@ -13,11 +12,10 @@ import java.util.concurrent.ConcurrentHashMap;
 
 
 @SpringBootApplication
-@EnableDiscoveryClient
 public class StockApplication {
 	@Bean
 	public Map<String, Stock> articles() {
-		return new ConcurrentHashMap<>(2_000_000);
+		return new ConcurrentHashMap<>();
 	}
 
 	@Bean

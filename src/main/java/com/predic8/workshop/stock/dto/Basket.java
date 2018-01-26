@@ -3,7 +3,6 @@ package com.predic8.workshop.stock.dto;
 import java.util.List;
 
 public class Basket {
-
 	private String uuid;
 	private List<Article> items;
 

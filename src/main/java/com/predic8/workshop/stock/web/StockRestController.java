@@ -28,7 +28,7 @@ public class StockRestController {
 
 	private KafkaTemplate<String, Operation> kafka;
 
-	public StockRestController(Map<String, Stock> articles, ObjectMapper mapper, KafkaTemplate kafka) {
+	public StockRestController(Map<String, Stock> articles, ObjectMapper mapper, KafkaTemplate<String, Operation> kafka) {
 		this.articles = articles;
 		this.mapper = mapper;
 		this.kafka = kafka;
@@ -67,8 +67,6 @@ public class StockRestController {
 		op.logSend();
 
 		kafka.send("shop", op).get(100, TimeUnit.MILLISECONDS);
-
-
 	}
 
 	@GetMapping("/count")

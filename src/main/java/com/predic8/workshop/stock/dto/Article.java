@@ -1,7 +1,6 @@
 package com.predic8.workshop.stock.dto;
 
 public class Article {
-	// TODO uuid
 	private String articleId;
 	private long quantity;
 
