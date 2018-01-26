@@ -63,13 +63,11 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
-		<!--
 		<dependency>
 			<groupId>com.predic8.workshop</groupId>
 			<artifactId>msa-logging-spring-boot-starter</artifactId>
 			<version>0.1.0</version>
 		</dependency>
-		-->
 		<dependency>
 			<groupId>commons-beanutils</groupId>
 			<artifactId>commons-beanutils-core</artifactId>
