@@ -23,9 +23,6 @@ public class StockApplication {
 		return new NullAwareBeanUtilsBean();
 	}
 
-	@Value("${spring.sleuth.web.skipPattern}")
-	private String skipPattern;
-
 	public static void main(String[] args) {
 		SpringApplication.run(StockApplication.class, args);
 	}
