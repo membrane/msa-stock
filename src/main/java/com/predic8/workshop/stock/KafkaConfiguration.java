@@ -17,7 +17,7 @@ import org.springframework.kafka.support.serializer.JsonDeserializer;
 public class KafkaConfiguration {
 	@Bean
 	public ConsumerFactory<String, Operation> consumerFactory(KafkaProperties kafkaProperties) {
-		return new DefaultKafkaConsumerFactory<>(kafkaProperties.buildConsumerProperties(), new StringDeserializer(), new JsonDeserializer<>(Operation.class));
+		return new DefaultKafkaConsumerFactory<>(kafkaProperties.buildConsumerProperties(), new StringDeserializer(), new JsonDeserializer<>(Operation.class, false));
 	}
 
 	@Bean
