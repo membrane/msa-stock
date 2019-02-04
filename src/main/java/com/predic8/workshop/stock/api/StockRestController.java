@@ -1,7 +1,6 @@
-package com.predic8.workshop.stock.web;
+package com.predic8.workshop.stock.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.predic8.workshop.stock.dto.Article;
 import com.predic8.workshop.stock.dto.Stock;
 import com.predic8.workshop.stock.error.NotFoundException;
 import com.predic8.workshop.stock.event.Operation;
@@ -11,11 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
-import java.util.logging.Logger;
-import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.*;
 
@@ -36,7 +31,8 @@ public class StockRestController {
 
 	@GetMapping
 	public List<Stock> index() {
-		return articles.entrySet().stream().map(Entry::getValue).collect(toList());
+		// Todo
+		return null;
 	}
 
 	@GetMapping("/{uuid}")
@@ -58,15 +54,7 @@ public class StockRestController {
 			throw new NotFoundException();
 		}
 
-		Stock updateBo = new Stock();
-		updateBo.setQuantity(neu.getQuantity());
-		updateBo.setUuid(uuid);
-
-		Operation op = new Operation("article", "update", mapper.valueToTree(updateBo));
-
-		op.logSend();
-
-		kafka.send("shop", op).get(100, TimeUnit.MILLISECONDS);
+		// TODO
 	}
 
 	@GetMapping("/count")
