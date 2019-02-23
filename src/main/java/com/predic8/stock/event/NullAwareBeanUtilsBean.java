@@ -1,4 +1,4 @@
-package com.predic8.workshop.stock.event;
+package com.predic8.stock.event;
 
 import org.apache.commons.beanutils.BeanUtilsBean;
 

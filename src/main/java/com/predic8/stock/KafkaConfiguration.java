@@ -1,7 +1,7 @@
-package com.predic8.workshop.stock;
+package com.predic8.stock;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.predic8.workshop.stock.event.Operation;
+import com.predic8.stock.event.Operation;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
@@ -22,6 +22,12 @@ import static com.fasterxml.jackson.databind.SerializationFeature.INDENT_OUTPUT;
 @Configuration
 public class KafkaConfiguration {
 
+
+	final private ObjectMapper mapper;
+
+	public KafkaConfiguration(ObjectMapper mapper) {
+		this.mapper = mapper;
+	}
 
 	/**
 	 * Do not use headers! Otherwise the class info in the headers will be used
@@ -45,12 +51,9 @@ public class KafkaConfiguration {
 	@Bean
 	public ProducerFactory<Object, Object> producerFactory( KafkaProperties props) {
 
-		ObjectMapper mapper = new ObjectMapper();
-		mapper.enable( INDENT_OUTPUT);
-
-		JsonSerializer ser =  new JsonSerializer<Operation>(mapper);
-
-		return new DefaultKafkaProducerFactory<>(props.buildProducerProperties(), new StringSerializer(),ser);
+		return new DefaultKafkaProducerFactory<>( props.buildProducerProperties(),
+				new StringSerializer(),
+				(JsonSerializer) new JsonSerializer<Operation>(mapper));
 	}
 
 

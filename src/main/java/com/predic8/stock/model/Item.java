@@ -1,10 +1,11 @@
-package com.predic8.workshop.stock.dto;
+package com.predic8.stock.model;
 
-public class Article {
+public class Item {
+
 	private String articleId;
 	private long quantity;
 
-	public Article() {
+	public Item() {
 	}
 
 	public String getArticleId() {
@@ -24,6 +25,6 @@ public class Article {
 	}
 
 	public String toString() {
-		return "Article(articleId=" + articleId + ", quantity=" + quantity + ")";
+		return "Item(articleId=" + articleId + ", quantity=" + quantity + ")";
 	}
 }

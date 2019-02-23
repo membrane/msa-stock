@@ -1,6 +1,10 @@
-package com.predic8.workshop.stock.dto;
+package com.predic8.stock.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties( value =  {"hibernateLazyInitializer", "handler"}, ignoreUnknown = true)
 public class Stock {
+
 	private String uuid;
     private long quantity;
 

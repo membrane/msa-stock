@@ -1,8 +1,7 @@
-package com.predic8.workshop.stock;
+package com.predic8.stock;
 
-import com.predic8.workshop.stock.dto.Stock;
-import com.predic8.workshop.stock.event.NullAwareBeanUtilsBean;
-import org.springframework.beans.factory.annotation.Value;
+import com.predic8.stock.model.Stock;
+import com.predic8.stock.event.NullAwareBeanUtilsBean;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -10,9 +9,12 @@ import org.springframework.context.annotation.Bean;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import static org.springframework.boot.SpringApplication.run;
+
 
 @SpringBootApplication
 public class StockApplication {
+
 	@Bean
 	public Map<String, Stock> articles() {
 		return new ConcurrentHashMap<>();
@@ -24,6 +26,6 @@ public class StockApplication {
 	}
 
 	public static void main(String[] args) {
-		SpringApplication.run(StockApplication.class, args);
+		run(StockApplication.class, args);
 	}
 }

@@ -1,4 +1,4 @@
-package com.predic8.workshop.stock.event;
+package com.predic8.stock.event;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import org.slf4j.Logger;

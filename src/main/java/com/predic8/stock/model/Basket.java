@@ -1,10 +1,11 @@
-package com.predic8.workshop.stock.dto;
+package com.predic8.stock.model;
 
 import java.util.List;
 
 public class Basket {
+
 	private String uuid;
-	private List<Article> items;
+	private List<Item> items;
 
 	public Basket() {
 	}
@@ -13,7 +14,7 @@ public class Basket {
 		return this.uuid;
 	}
 
-	public List<Article> getItems() {
+	public List<Item> getItems() {
 		return this.items;
 	}
 
