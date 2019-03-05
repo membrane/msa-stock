@@ -4,11 +4,6 @@ spring:
     name: stock
     instance: 1
 
-  datasource:
-      url: jdbc:postgresql://localhost:5432/catalogue
-      username: catalogue
-      password: catalogue
-
   jpa:
     hibernate:
       ddl-auto: update
