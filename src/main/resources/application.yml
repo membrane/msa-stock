@@ -3,20 +3,6 @@ spring:
   application:
     name: stock
 
-  datasource:
-      url: jdbc:postgresql://localhost:5432/catalogue
-      username: catalogue
-      password: catalogue
-
-  jpa:
-    hibernate:
-      ddl-auto: update
-    properties:
-      hibernate:
-        jdbc:
-          # Fix for Spring 2 and Postgres
-          lob:
-            non_contextual_creation: true
   kafka:
     consumer:
       group-id: stock-${random.uuid}
