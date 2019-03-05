@@ -7,7 +7,8 @@ import org.slf4j.LoggerFactory;
 import java.util.HashMap;
 import java.util.Map;
 
-//import static net.logstash.logback.marker.Markers.appendEntries;
+import static net.logstash.logback.marker.Markers.appendEntries;
+
 
 public class Operation {
 
@@ -58,7 +59,7 @@ public class Operation {
 		entries.put("object", object);
 		entries.put("direction", direction);
 
-		//log.info(appendEntries(entries),"");
+		log.info( appendEntries(entries),"");
 	}
 
 }
