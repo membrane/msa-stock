@@ -12,14 +12,14 @@ import java.util.Map;
 @RequestMapping("/stocks")
 @RestController
 public class StockRestController {
-	private final Map<String, Stock> articles;
+	private final Map<String, Stock> stocks;
 
 	private ObjectMapper mapper;
 
 	private KafkaTemplate<String, Operation> kafka;
 
 	public StockRestController(Map<String, Stock> articles, ObjectMapper mapper, KafkaTemplate<String, Operation> kafka) {
-		this.articles = articles;
+		this.stocks = articles;
 		this.mapper = mapper;
 		this.kafka = kafka;
 	}
@@ -32,6 +32,6 @@ public class StockRestController {
 
 	@GetMapping("/count")
 	public long count() {
-		return articles.size();
+		return stocks.size();
 	}
 }

@@ -16,7 +16,7 @@ import static org.springframework.boot.SpringApplication.run;
 public class StockApplication {
 
 	@Bean
-	public Map<String, Stock> articles() {
+	public Map<String, Stock> stocks() {
 		return new ConcurrentHashMap<>();
 	}
 
