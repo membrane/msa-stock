@@ -9,7 +9,7 @@
 	<packaging>jar</packaging>
 
 	<name>stock</name>
-	<description>Service managing the quanities of articles in stock.</description>
+	<description>Service managing the quanities of articles in stock</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
